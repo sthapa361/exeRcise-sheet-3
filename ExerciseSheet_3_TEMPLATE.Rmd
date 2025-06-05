@@ -229,6 +229,20 @@ head(global_mortality, 10)
 f)  Create a meaningful plot / figure with the dataset. Make sure to
     provide a figure caption (via the chunk options / Rmarkdown) and
     correctly label the figure.
+```{r, fig.cap="Figure 1: Global Average Child Mortality Rates (1970-2020)"}
+# Plot global average child mortality over time
+ggplot(global_mortality, aes(x = Year, y = avg_child_mortality)) +
+  geom_line(color = "steelblue", size = 1.2) +
+  labs(
+    title = "Global Average Child Mortality Rates (1970-2020)",
+    x = "Year",
+    y = "Average Child Mortality Rate (per 1000 births)"
+  ) +
+  theme_minimal()
+```
+Research question answer:
+The plot shows that global child mortality rates have decreased dramatically from just below 125 deaths per 1,000 live births in 1970 to just above 25 per 1,000 in 2020. This represents a reduction of nearly 80% over the last five decades, highlighting substantial progress in global child health.
+
 
 ## Final Note
 
