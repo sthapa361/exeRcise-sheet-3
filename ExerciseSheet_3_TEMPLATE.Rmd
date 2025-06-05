@@ -202,6 +202,7 @@ d)  Come up with a (research) question you want to answer with the data
     within one sentence. It should be a question that can be answered
     with the dataset and using R.
     
+    
 Research Question:
 How has child mortality changed globally over the last 50 years (from 1970 to 2020)?
 
@@ -211,6 +212,19 @@ e)  Use R to answer your chosen question. Please limit your analysis to
     the functions and techniques we have covered so far in the course.
     You are **not expected** to use advanced statistical models or
     external packages which haven't been introduced.
+```{r}
+library(tidyverse)
+
+child_mortality <- read_csv("data/Child Mortality Rates (Complete Gapminder, v10) (2017).csv")
+
+global_mortality <- child_mortality %>%
+  filter(Year >= 1970, Year <= 2020) %>%
+  group_by(Year) %>%
+  summarise(avg_child_mortality = mean(`Child mortality`, na.rm = TRUE))
+
+head(global_mortality, 10)
+```
+    
     
 f)  Create a meaningful plot / figure with the dataset. Make sure to
     provide a figure caption (via the chunk options / Rmarkdown) and
