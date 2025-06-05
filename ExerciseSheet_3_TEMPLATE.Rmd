@@ -86,11 +86,14 @@ a)  Load the `pixar_films` dataset into R. Clean the dataset by removing
     films without a title. Inspect the variable `film_rating`. What are
     the possible values and what do they mean? Create a factor variable
     for the film rating. Why is this appropriate?
+    
 ```{r}
 library(tidyverse)
 film_data <- read.csv("data/pixar_films.csv")
 clean_film_data <- film_data %>% filter(!is.na(film))
+clean_film_data$film_rating <- factor(clean_film_data$film_rating,levels = c("G","PG"))
 ```
+
 The film_rating variable is Rating based on Motion Picture Association (MPA) film rating system.
 
 Possible values are:
@@ -109,12 +112,11 @@ Restricted to viewers over 17 unless accompanied by an adult. Contains adult mat
 
 N/A
 Missing rating or not rated
-```{r}
-clean_film_data$film_rating <- factor(clean_film_data$film_rating,levels = c("G","PG"))
-```
+
+Why is this appropriate:
+Using factors is appropriate because film ratings are categorical and have a defined set of possible values (e.g., G, PG, etc.). Factors help in clearly representing these categories.
 
 
-<!-- -->
 
 b)  Inspect the film titles manually. Which films form a film series? A
     film series can be identified by a common word in the titles of the
@@ -122,6 +124,7 @@ b)  Inspect the film titles manually. Which films form a film series? A
     e.g. "Despicable Me" and "Despicable Me 2". Create a dataframe which
     displays a list of the different series with the titles of the films
     and how many films belong to the series. Output the dataframe.
+    
 ```{r}
 clean_film_data <- clean_film_data %>%
   mutate(series = case_when(
@@ -197,6 +200,7 @@ clean_combined_data <- combined_data %>%
     
  
 ```
+
 When comparing Rotten Tomatoes scores across Pixar film series, a clear trend emerges: the first movie in each series consistently has the highest score, with sequels generally receiving lower ratings. The only exception is the "Cars" series, where the first film scores high, the second drops significantly, and the third rises again. 
 
 ## Exercise 4: Open Analysis (4 points)
@@ -229,6 +233,7 @@ e)  Use R to answer your chosen question. Please limit your analysis to
     the functions and techniques we have covered so far in the course.
     You are **not expected** to use advanced statistical models or
     external packages which haven't been introduced.
+    
 ```{r}
 library(tidyverse)
 
@@ -246,7 +251,8 @@ head(global_mortality, 10)
 f)  Create a meaningful plot / figure with the dataset. Make sure to
     provide a figure caption (via the chunk options / Rmarkdown) and
     correctly label the figure.
-```{r, fig.cap="Figure 1: Global Average Child Mortality Rates (1970-2020)"}
+    
+```{r}
 # Plot global average child mortality over time
 ggplot(global_mortality, aes(x = Year, y = avg_child_mortality)) +
   geom_line(color = "steelblue", size = 1.2) +
@@ -257,6 +263,7 @@ ggplot(global_mortality, aes(x = Year, y = avg_child_mortality)) +
   ) +
   theme_minimal()
 ```
+
 Research question answer:
 The plot shows that global child mortality rates have decreased dramatically from just below 125 deaths per 1,000 live births in 1970 to just above 25 per 1,000 in 2020. This represents a reduction of nearly 80% over the last five decades, highlighting substantial progress in global child health.
 
