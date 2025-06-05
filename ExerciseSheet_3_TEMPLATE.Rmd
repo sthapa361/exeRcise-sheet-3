@@ -112,7 +112,7 @@ clean_film_data <- clean_film_data %>%
     str_detect(film, "Cars") ~ "Cars",
     str_detect(film, "Finding") ~ "Finding",
     str_detect(film, "Monsters") ~ "Monsters",
-    str_detect(film, "Incredibles") ~ "Incredibles"))
+    str_detect(film, "Incredibles") ~ "Incredibles")) %>% filter(!is.na(series))
 
 series_summary <- clean_film_data %>%
   group_by(series) %>%
@@ -121,7 +121,8 @@ series_summary <- clean_film_data %>%
     num_films = n(),
   ) %>%
   filter(num_films > 1)
-print(clean_combined_data)
+
+print(series_summary)
 ```
     
 
@@ -158,9 +159,12 @@ d)  Choose one of the variables representing the public response and
     
 ```{r}
 
-combined_data$release_date <- as.Date(combined_data$release_date) 
-clean_combined_data <- combined_data %>%filter(!is.na(series)) %>% arrange(release_date) %>%  group_by(series)
- 
+clean_combined_data <- combined_data %>%
+  filter(!is.na(series)) %>%
+  arrange(series, release_date) %>%
+  group_by(series) %>%
+  mutate(film = factor(film, levels = unique(film))) %>%
+  ungroup()
 
   ggplot(clean_combined_data,
   aes(
@@ -174,21 +178,9 @@ clean_combined_data <- combined_data %>%filter(!is.na(series)) %>% arrange(relea
        fill = "film title") +
   theme_minimal() 
     
-    
-    
-    
-    
-    
-    
-    
-
-
-
-
-
-
+ 
 ```
-    
+When comparing Rotten Tomatoes scores across Pixar film series, a clear trend emerges: the first movie in each series consistently has the highest score, with sequels generally receiving lower ratings. The only exception is the "Cars" series, where the first film scores high, the second drops significantly, and the third rises again. 
 
 ## Exercise 4: Open Analysis (4 points)
 
