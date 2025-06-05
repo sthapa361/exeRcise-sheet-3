@@ -121,7 +121,7 @@ series_summary <- clean_film_data %>%
     num_films = n(),
   ) %>%
   filter(num_films > 1)
-
+print(clean_combined_data)
 ```
     
 
@@ -155,6 +155,40 @@ d)  Choose one of the variables representing the public response and
 
     What do you notice when comparing the scores of the films in a
     series? Do you see any patterns?
+    
+```{r}
+
+combined_data$release_date <- as.Date(combined_data$release_date) 
+clean_combined_data <- combined_data %>%filter(!is.na(series)) %>% arrange(release_date) %>%  group_by(series)
+ 
+
+  ggplot(clean_combined_data,
+  aes(
+    x = series,
+    y = rotten_tomatoes,
+    fill = film
+  ))+ geom_bar(stat = "identity",position = position_dodge(width = 0.8))+
+  labs(title = "Public Response",
+       x = "film series",
+       y = "rotten tomatoes rating",
+       fill = "film title") +
+  theme_minimal() 
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+
+
+
+
+```
+    
 
 ## Exercise 4: Open Analysis (4 points)
 
