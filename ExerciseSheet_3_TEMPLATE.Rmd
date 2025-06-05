@@ -86,6 +86,16 @@ a)  Load the `pixar_films` dataset into R. Clean the dataset by removing
     films without a title. Inspect the variable `film_rating`. What are
     the possible values and what do they mean? Create a factor variable
     for the film rating. Why is this appropriate?
+```{r}
+library(tidyverse)
+film_data <- read.csv("data/pixar_films.csv")
+clean_film_data <- film_data %>% filter(!is.na(film))
+```
+Possible film rating values are G, PG, and missing rating. Rating based on Motion Picture Association (MPA) film rating system. G (General Audiences): All ages admitted. PG (Parental Guidance Suggested): Some material may not be suitable for children, parents are urged to give parental guidance.
+```{r}
+clean_film_data$film_rating <- factor(clean_film_data$film_rating,levels = c("G","PG"))
+```
+
 
 <!-- -->
 
